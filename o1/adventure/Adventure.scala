@@ -24,7 +24,9 @@ class Adventure:
   private val neighbor    = Area("Neighbor", "You are at your neighbor's home.")
   private val destination = home
 
-  home.setNeighbors(Vector("west" -> garden))
+  home.   setNeighbors(Vector(                                                                "west" -> garden))
+  street1.setNeighbors(Vector("north" -> home,    "east" -> neighbor, "south" -> street2,     "west" -> forest))
+  street2.setNeighbors(Vector("north" -> street1, "east" -> butcher,  "south" -> supermarket, "west" -> farm))
 
   /*
   middle     .setNeighbors(Vector("north" -> northForest, "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
