@@ -44,7 +44,7 @@ class Adventure:
   farm        .addItem(Item("onion",       "tears upon the corners of your eyes")
   supermarket .addItem(Item("seasonings",  "you wish British people actually know about the existence of this")
   butcher     .addItem(Item("pork",        "why is it tranporting randomly?")
-  neighbor     .addItem(Item("flour",      "soft ang gentle")
+  neighbor    .addItem(Item("flour",      "soft ang gentle")
 
   /** Characters */
   farm        .addItem(Item("farmer Francesco", "Your mother's name does ring a bell")
