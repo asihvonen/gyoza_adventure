@@ -39,7 +39,6 @@ class Adventure:
   /** Items  */
   home        .addItem(Item("frying pan",  "very good for bonking")
   garden      .addItem(Item("seed",        "do you wanna see the giants?")
-  garden      .addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that")
   forest      .addItem(Item("mushrooms",   "maybe you can go on a psychedelic adventures with them?")
   farm        .addItem(Item("onion",       "tears upon the corners of your eyes")
   supermarket .addItem(Item("seasonings",  "you wish British people actually know about the existence of this")
@@ -60,10 +59,16 @@ class Adventure:
   /** The maximum number of turns that this adventure game allows before time runs out. */
   val timeLimit = 40
 
+  def addCabbageIntoGarden =
+    //if planted.seed then
+    if this.turncount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
+      garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that")
+
+
 
   /** Determines if the adventure is complete, that is, if the player has won. */
   def isComplete =
-    (this.player.location == this.destination) && this.player.has("battery") && this.player.has("remote")
+    (this.player.location == this.destination) && this.player.has("Cabbage") && this.player.has("remote")
     //additional win conditions given: the player must have the battery and remote control in their possession
 
   /** Determines whether the player has won, lost, or quit, thereby ending the game. */
