@@ -13,14 +13,18 @@ class Adventure:
   /** the name of the game */
   val title = "A Forest Adventure"
 
-  private val middle      =  Area("Forest", "You are somewhere in the forest. There are a lot of trees here.\nBirds are singing.")
-  private val northForest = Area("Forest", "You are somewhere in the forest. A tangle of bushes blocks further passage north.\nBirds are singing.")
-  private val southForest = Area("Forest", "The forest just goes on and on.")
-  private val clearing    = Area("Forest Clearing", "You are at a small clearing in the middle of forest.\nNearly invisible, twisted paths lead in many directions.")
-  private val tangle      = Area("Tangle of Bushes", "You are in a dense tangle of bushes. It's hard to see exactly where you're going.")
-  private val home        = Area("Home", "Home sweet home! Now the only thing you need is a working remote control.")
+  private val home        =  Area("Home", "You are at home.")
+  private val street1     = Area("Street", "You are on the street.")
+  private val street2     = Area("Street", "You are on the street")
+  private val garden      = Area("Garden", "You are in the garden by your home.")
+  private val forest      = Area("Forest", "You are a forest.")
+  private val farm        = Area("Farm", "You are on a farm.")
+  private val supermarket = Area("Supermarket", "You are in the town supermarket.")
+  private val butcher     = Area("Butcher", "You are in the butcher's shop.")
+  private val neighbor    = Area("Neighbor", "You are at your neighbor's home.")
   private val destination = home
-
+  
+  /*
   middle     .setNeighbors(Vector("north" -> northForest, "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
   northForest.setNeighbors(Vector(                        "east" -> tangle, "south" -> middle,      "west" -> clearing   ))
   southForest.setNeighbors(Vector("north" -> middle,      "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
@@ -31,9 +35,9 @@ class Adventure:
   //items in the world
   clearing   .addItem(Item("battery", "It's a small battery cell. Looks new."))
   southForest.addItem(Item("remote", "It's the remote control for your TV.\nWhat it was doing in the forest, you have no idea.\nProblem is, there's no battery."))
-
+   */
   /** The character that the player controls in the game. */
-  val player = Player(middle)
+  val player = Player(home)
 
   /** The number of turns that have passed since the start of the game. */
   var turnCount = 0
