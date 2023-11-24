@@ -44,10 +44,13 @@ class Player(startingArea: Area):
     if theSeed == "seed" then
       if this.currentLocation == garden && this.has.("seed") then
         this.possesions -= theSeed
+        print("Seed succesfully planted.")
         true
       else
+        print("Unsuccessful, you either plan it in the wrong place, or you need to have the seed first.")
         false
     else
+      print("You can't plan this item, you have to plan a seed.")
       false
 
 
