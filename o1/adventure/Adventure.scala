@@ -10,38 +10,38 @@ package o1.adventure
   * games, you will need to modify or replace the source code of this class. */
 class Adventure:
 
-  /** the name of the game */
-  val title = "A Forest Adventure"
+  /** The name of the game */
+  val title = "Gyoza Adventure"
 
-  private val home        = Area("Home", "You are at home.")
-  private val street1     = Area("Street", "You are on the street.")
-  private val street2     = Area("Street", "You are on the street")
-  private val garden      = Area("Garden", "You are in the garden by your home.")
-  private val forest      = Area("Forest", "You are a forest.")
-  private val farm        = Area("Farm", "You are on a farm.")
-  private val supermarket = Area("Supermarket", "You are in the town supermarket.")
-  private val butcher     = Area("Butcher", "You are in the butcher's shop.")
-  private val neighbor    = Area("Neighbor", "You are at your neighbor's home.")
+  /** Game areas */
+  private val home        = Area("Home",          "You are at home.")
+  private val street1     = Area("Street",        "You are on the street.")
+  private val street2     = Area("Street",         "You are on the street")
+  private val garden      = Area("Garden",         "You are in the garden by your home.")
+  private val forest      = Area("Forest",         "You are a forest.")
+  private val farm        = Area("Farm",            "You are on a farm.")
+  private val supermarket = Area("Supermarket",     "You are in the town supermarket.")
+  private val butcher     = Area("Butcher",         "You are in the butcher's shop.")
+  private val neighbor    = Area("Neighbor",        "You are at your neighbor's home.")
   private val destination = home
 
-  home.   setNeighbors(Vector(                                                                "west" -> garden))
-  street1.setNeighbors(Vector("north" -> home,    "east" -> neighbor, "south" -> street2,     "west" -> forest))
-  street2.setNeighbors(Vector("north" -> street1, "east" -> butcher,  "south" -> supermarket, "west" -> farm))
+  /** Relative locations of areas */
+  home        .setNeighbors(Vector(                                                                "west" -> garden ))
+  street1     .setNeighbors(Vector("north" -> home,    "east" -> neighbor, "south" -> street2,     "west" -> forest ))
+  street2     .setNeighbors(Vector("north" -> street1, "east" -> butcher,  "south" -> supermarket, "west" -> farm   ))
+  garden      .setNeighbors(Vector(                    "east" -> home                                               ))
+  forest      .setNeighbors(Vector(                    "east" -> street1                                            ))
+  farm        .setNeighbors(Vector(                    "east" -> street2                                            ))
+  supermarket .setNeighbors(Vector("north" -> street2                                                               ))
+  butcher     .setNeighbors(Vector("north" -> neighbor,                                            "west" -> street2))
+  neighbor    .setNeighbors(Vector(                                         "south" -> butcher,    "west" -> street1))
 
-  /*
-  middle     .setNeighbors(Vector("north" -> northForest, "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
-  northForest.setNeighbors(Vector(                        "east" -> tangle, "south" -> middle,      "west" -> clearing   ))
-  southForest.setNeighbors(Vector("north" -> middle,      "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
-  clearing   .setNeighbors(Vector("north" -> northForest, "east" -> middle, "south" -> southForest, "west" -> northForest))
-  tangle     .setNeighbors(Vector("north" -> northForest, "east" -> home,   "south" -> southForest, "west" -> northForest))
-  home       .setNeighbors(Vector(                                                                  "west" -> tangle     ))
+  /** Items  */
+  //clearing   .addItem(Item("battery", "It's a small battery cell. Looks new."))
+  //southForest.addItem(Item("remote", "It's the remote control for your TV.\nWhat it was doing in the forest, you have no idea.\nProblem is, there's no battery."))
 
-  //items in the world
-  clearing   .addItem(Item("battery", "It's a small battery cell. Looks new."))
-  southForest.addItem(Item("remote", "It's the remote control for your TV.\nWhat it was doing in the forest, you have no idea.\nProblem is, there's no battery."))
-   */
   /** The character that the player controls in the game. */
-  val player = Player(home)
+  val player = Player(home) //player's startingArea is home
 
   /** The number of turns that have passed since the start of the game. */
   var turnCount = 0
@@ -58,10 +58,13 @@ class Adventure:
   def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit
 
   /** Returns a message that is to be displayed to the player at the beginning of the game. */
-  def welcomeMessage = "You are lost in the woods. Find your way back home.\n\nBetter hurry, 'cause Scalatut elämät is on real soon now. And you can't miss Scalkkarit, right?"
+  def welcomeMessage =
+    "Sizzling and steaming, crispy on the bottom and oh so tender on top, your very first taste of your late mother's gyoza was love at first bite." +
+    "\n\nReminiscing in this memory, you begin to miss your mother and all the dear memories you have of her. You decide to make gyoza in honor of those memories." +
+    "You check your mother's recipe book and decide to set out to get all the necessary ingredients."
 
 
-  /** Returns a message that is to be displayed to the player at the end of the game. The message
+  /** Message displayed to the player at the end of the game. The message
     * will be different depending on whether or not the player has completed their quest. */
   def goodbyeMessage =
     if this.isComplete then
