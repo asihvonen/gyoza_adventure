@@ -40,6 +40,20 @@ class Player(startingArea: Area):
   def rest() =
     "You rest for a while. Better get a move on, though."
 
+  def plantedSeed(theSeed: String) =
+    if theSeed == "seed" then
+      if this.currentLocation == garden && this.has.("seed") then
+        this.possesions -= theSeed
+        print("Seed succesfully planted.")
+        true
+      else
+        print("Unsuccessful, you either plan it in the wrong place, or you need to have the seed first.")
+        false
+    else
+      print("You can't plan this item, you have to plan a seed.")
+      false
+
+
 
   /** Signals that the player wants to quit the game. Returns a description of what happened within
     * the game as a result (which is the empty string, in this case). */
