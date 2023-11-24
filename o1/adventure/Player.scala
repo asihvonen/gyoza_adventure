@@ -11,9 +11,9 @@ import scala.collection.mutable.Map
   * @param startingArea  the player’s initial location */
 class Player(startingArea: Area):
 
-  private var currentLocation = startingArea        // gatherer: changes in relation to the previous location
-  private var quitCommandGiven = false              // one-way flag
-  private var possessions = Map[String, Item]()     // Map of the items that a player has in their possession
+  private var currentLocation = startingArea           // gatherer: changes in relation to the previous location
+  private var quitCommandGiven = false                 // one-way flag
+  private var possessions = Map[String, Item]()        // Map of the items that a player has in their possession
 
   /** Determines if the player has indicated a desire to quit the game. */
   def hasQuit = this.quitCommandGiven
@@ -74,8 +74,16 @@ class Player(startingArea: Area):
   def has(itemName: String): Boolean = this.possessions.contains(itemName)
   //Determines whether the player is carrying an item of the given name.
 
+  def talk(townspersonName: String): String =
+    if this.location.resides(townspersonName) then
+       s"You talk to $townspersonName."
+       //and then this should call some other def which starts the conversation which takes user input and all...
+       //no but what
+    else
+      "You can't talk to who you can't see."
+
   //def canMakeGyoza(): Boolean = this.possessions.size == 6 && this.location
-  //number of ingredients now hard-coded!!
+  //number of ingredients now hard-coded!! also this doesn't really work because a lot of info needed for this is found in Adventure.scala...
 
 end Player
 

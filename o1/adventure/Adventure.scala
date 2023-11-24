@@ -14,15 +14,15 @@ class Adventure:
   val title = "Gyoza Adventure"
 
   /** Game areas */
-  private val home        = Area("Home",          "You are at home.")
-  private val street1     = Area("Street",        "You are on the street.")
-  private val street2     = Area("Street",         "You are on the street")
-  private val garden      = Area("Garden",         "You are in the garden by your home.")
-  private val forest      = Area("Forest",         "You are a forest.")
-  private val farm        = Area("Farm",            "You are on a farm.")
-  private val supermarket = Area("Supermarket",     "You are in the town supermarket.")
-  private val butcher     = Area("Butcher",         "You are in the butcher's shop.")
-  private val neighbor    = Area("Neighbor",        "You are at your neighbor's home.")
+  private val home        = Area("Home",          "You are your home sweet home. This was where your mother took her last breath.")
+  private val street1     = Area("Street",        "You are on the street. There's nothing much to see here.")
+  private val street2     = Area("Street",        "You are on the street. There's probably more to see elsewhere.")
+  private val garden      = Area("Garden",        "You are in the magical little garden by your home. Here you can grow all that your heart desires.")
+  private val forest      = Area("Forest",        "You are in a spooky forest. There's amazing things to be found in nature. ")
+  private val farm        = Area("Farm",          "You are on a farm. A hillbilly town's got to have a farm somewhere near.")
+  private val supermarket = Area("Supermarket",   "You are in the town supermarket. There's only one supermarket and this is it.")
+  private val butcher     = Area("Butcher",       "You are in the butcher's shop. They always have the most beautiful red paints here.")
+  private val neighbor    = Area("Neighbor",      "You are now in your neighbors home. ")
   private val destination = home
 
   /** Relative locations of areas */
@@ -37,19 +37,19 @@ class Adventure:
   neighbor    .setNeighbors(Vector(                                         "south" -> butcher,    "west" -> street1))
 
   /** Items  */
-  home        .addItem(Item("frying pan",  "very good for bonking")
-  garden      .addItem(Item("seed",        "do you wanna see the giants?")
-  forest      .addItem(Item("mushrooms",   "maybe you can go on a psychedelic adventures with them?")
-  farm        .addItem(Item("onion",       "tears upon the corners of your eyes")
-  supermarket .addItem(Item("seasonings",  "you wish British people actually know about the existence of this")
-  butcher     .addItem(Item("pork",        "why is it tranporting randomly?")
-  neighbor    .addItem(Item("flour",      "soft ang gentle")
+  home        .addItem(Item("frying pan",  "very good for bonking"))
+  garden      .addItem(Item("seed",        "do you wanna see the giants?"))
+  forest      .addItem(Item("mushrooms",   "maybe you can go on a psychedelic adventures with them?"))
+  farm        .addItem(Item("onion",       "tears upon the corners of your eyes"))
+  supermarket .addItem(Item("seasonings",  "you wish British people actually know about the existence of this"))
+  butcher     .addItem(Item("pork",        "why is it tranporting randomly?"))
+  neighbor    .addItem(Item("flour",       "soft ang gentle"))
 
-  /** Characters */
-  farm        .addItem(Item("farmer Francesco", "Your mother's name does ring a bell")
-  supermarket .addItem(Item("Clark the clerk", "Ms. Azoig? Someone like that was here years ago to grab all of our milk. I caused the great milk shortage of our town. Good times.")
-  butcher     .addItem(Item("Butch the butcher", "Damn pig running in circles around town again. Like all creatures do upon the sight of death. They run. Futile effort tho.")
-  neighbor    .addItem(Item("Neiro your neighbor", "mm mmmmm mmmm")
+  /** Townspeople */
+  farm        .addItem(Item("farmer Francesco",    "Your mother's name does ring a bell"))
+  supermarket .addItem(Item("Clark the clerk",     "Ms. Azoig? Someone like that was here years ago to grab all of our milk. I caused the great milk shortage of our town. Good times."))
+  butcher     .addItem(Item("Butch the butcher",   "Damn pig running in circles around town again. Like all creatures do upon the sight of death. They run. Futile effort tho."))
+  neighbor    .addItem(Item("Neiro your neighbor", "mm mmmmm mmmm"))
 
   /** The character that the player controls in the game. */
   val player = Player(home) //player's startingArea is home
@@ -61,10 +61,8 @@ class Adventure:
 
   def addCabbageIntoGarden =
     //if planted.seed then
-    if this.turncount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
-      garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that")
-
-
+    if this.turnCount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
+      garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
 
   /** Determines if the adventure is complete, that is, if the player has won. */
   def isComplete =

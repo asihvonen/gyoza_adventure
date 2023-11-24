@@ -11,8 +11,9 @@ import scala.collection.mutable.Map
   * @param description  a basic description of the area (typically not including information about items) */
 class Area(var name: String, var description: String):
 
-  private val neighbors = Map[String, Area]()
-  private val items = Map[String, Item]()
+  private val neighbors = Map[String, Area]()    //the areas which neighbor this area
+  private val items = Map[String, Item]()        //the items that a given area contains
+  private val townspeople = Map[String, Item]() //the townspeople that reside in a given area
 
   /** Returns the area that can be reached from this area by moving in the given direction. The result
     * is returned in an `Option`; `None` is returned if there is no exit in the given direction. */
@@ -56,10 +57,12 @@ class Area(var name: String, var description: String):
 
   def contains(itemName: String): Boolean = //Determines if the area contains an item of the given name.
     items.contains(itemName)
+  
+  def resides(townspersonName: String): Boolean =
+    townspeople.contains(townspersonName)
     
-  def addPerson(person: Person): Unit =
-    if open then
-      this.people = this.people :+ person
+  def addTownsperson(townsperson: Townsperson): Unit = //Places a townsperson in an area. The player can talk with the townsperson.
+    townspeople += townsperson.name -> townsperson
 
   /** Returns a single-line description of the area for debugging purposes. */
   override def toString = this.name + ": " + this.description.replaceAll("\n", " ").take(150)
