@@ -56,6 +56,10 @@ class Area(var name: String, var description: String):
 
   def contains(itemName: String): Boolean = //Determines if the area contains an item of the given name.
     items.contains(itemName)
+    
+  def addPerson(person: Person): Unit =
+    if open then
+      this.people = this.people :+ person
 
   /** Returns a single-line description of the area for debugging purposes. */
   override def toString = this.name + ": " + this.description.replaceAll("\n", " ").take(150)

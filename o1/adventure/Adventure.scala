@@ -40,6 +40,23 @@ class Adventure:
   clearing   .addItem(Item("battery", "It's a small battery cell. Looks new."))
   southForest.addItem(Item("remote", "It's the remote control for your TV.\nWhat it was doing in the forest, you have no idea.\nProblem is, there's no battery."))
    */
+
+  home.addItem(Item("frying pan", "very good for bonking")
+  garden.addItem(Item("seed", "do you wanna see the giants?")
+  garden.addItem(Item("Cabbage", "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that")
+  forest.addItem(Item("mushrooms", "maybe you can go on a psychedelic adventures with them?")
+  farm.addItem(Item("onion", "tears upon the corners of your eyes")
+  supermarket.addItem(Item("seasonings", "you wish British people actually know about the existence of this")
+  butcher.addItem(Item("pork", "why is it tranporting randomly?")
+  neighbor.addItem(Item("flour", "soft ang gentle")
+
+  farm.addItem(Item("farmer Francesco", "Your mother's name does ring a bell")
+  supermarket.addItem(Item("Clark the clerk", "Ms. Azoig? Someone like that was here years ago to grab all of our milk. I caused the great milk shortage of our town. Good times.")
+  butcher.addItem(Item("Butch the butcher", "Damn pig running in circles around town again. Like all creatures do upon the sight of death. They run. Futile effort tho.")
+  neighbor.addItem(Item("Neiro your neighbor", "mm mmmmm mmmm")
+
+
+
   /** The character that the player controls in the game. */
   val player = Player(home)
 
