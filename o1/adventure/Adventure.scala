@@ -25,7 +25,6 @@ class Adventure:
   private val neighbor    = Area("Neighbor",        "You are at your neighbor's home.")
   private val destination = home
 
-<<<<<<< HEAD
   /** Relative locations of areas */
   home        .setNeighbors(Vector(                                                                "west" -> garden ))
   street1     .setNeighbors(Vector("north" -> home,    "east" -> neighbor, "south" -> street2,     "west" -> forest ))
@@ -38,42 +37,20 @@ class Adventure:
   neighbor    .setNeighbors(Vector(                                         "south" -> butcher,    "west" -> street1))
 
   /** Items  */
-  //clearing   .addItem(Item("battery", "It's a small battery cell. Looks new."))
-  //southForest.addItem(Item("remote", "It's the remote control for your TV.\nWhat it was doing in the forest, you have no idea.\nProblem is, there's no battery."))
-=======
-  home.   setNeighbors(Vector(                                                                "west" -> garden))
-  street1.setNeighbors(Vector("north" -> home,    "east" -> neighbor, "south" -> street2,     "west" -> forest))
-  street2.setNeighbors(Vector("north" -> street1, "east" -> butcher,  "south" -> supermarket, "west" -> farm))
+  home        .addItem(Item("frying pan",  "very good for bonking")
+  garden      .addItem(Item("seed",        "do you wanna see the giants?")
+  garden      .addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that")
+  forest      .addItem(Item("mushrooms",   "maybe you can go on a psychedelic adventures with them?")
+  farm        .addItem(Item("onion",       "tears upon the corners of your eyes")
+  supermarket .addItem(Item("seasonings",  "you wish British people actually know about the existence of this")
+  butcher     .addItem(Item("pork",        "why is it tranporting randomly?")
+  neighbor     .addItem(Item("flour",      "soft ang gentle")
 
-  /*
-  middle     .setNeighbors(Vector("north" -> northForest, "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
-  northForest.setNeighbors(Vector(                        "east" -> tangle, "south" -> middle,      "west" -> clearing   ))
-  southForest.setNeighbors(Vector("north" -> middle,      "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
-  clearing   .setNeighbors(Vector("north" -> northForest, "east" -> middle, "south" -> southForest, "west" -> northForest))
-  tangle     .setNeighbors(Vector("north" -> northForest, "east" -> home,   "south" -> southForest, "west" -> northForest))
-  home       .setNeighbors(Vector(                                                                  "west" -> tangle     ))
-
-  //items in the world
-  clearing   .addItem(Item("battery", "It's a small battery cell. Looks new."))
-  southForest.addItem(Item("remote", "It's the remote control for your TV.\nWhat it was doing in the forest, you have no idea.\nProblem is, there's no battery."))
-   */
-
-  home.addItem(Item("frying pan", "very good for bonking")
-  garden.addItem(Item("seed", "do you wanna see the giants?")
-  garden.addItem(Item("Cabbage", "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that")
-  forest.addItem(Item("mushrooms", "maybe you can go on a psychedelic adventures with them?")
-  farm.addItem(Item("onion", "tears upon the corners of your eyes")
-  supermarket.addItem(Item("seasonings", "you wish British people actually know about the existence of this")
-  butcher.addItem(Item("pork", "why is it tranporting randomly?")
-  neighbor.addItem(Item("flour", "soft ang gentle")
-
-  farm.addItem(Item("farmer Francesco", "Your mother's name does ring a bell")
-  supermarket.addItem(Item("Clark the clerk", "Ms. Azoig? Someone like that was here years ago to grab all of our milk. I caused the great milk shortage of our town. Good times.")
-  butcher.addItem(Item("Butch the butcher", "Damn pig running in circles around town again. Like all creatures do upon the sight of death. They run. Futile effort tho.")
-  neighbor.addItem(Item("Neiro your neighbor", "mm mmmmm mmmm")
-
-
->>>>>>> 93ddec1b6b9ac50cb9ef68d38d1ab4897b7c6558
+  /** Characters */
+  farm        .addItem(Item("farmer Francesco", "Your mother's name does ring a bell")
+  supermarket .addItem(Item("Clark the clerk", "Ms. Azoig? Someone like that was here years ago to grab all of our milk. I caused the great milk shortage of our town. Good times.")
+  butcher     .addItem(Item("Butch the butcher", "Damn pig running in circles around town again. Like all creatures do upon the sight of death. They run. Futile effort tho.")
+  neighbor    .addItem(Item("Neiro your neighbor", "mm mmmmm mmmm")
 
   /** The character that the player controls in the game. */
   val player = Player(home) //player's startingArea is home
