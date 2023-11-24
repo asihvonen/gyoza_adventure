@@ -46,10 +46,10 @@ class Adventure:
   neighbor    .addItem(Item("flour",       "soft ang gentle"))
 
   /** Townspeople */
-  farm        .addItem(Item("farmer Francesco",    "Your mother's name does ring a bell"))
-  supermarket .addItem(Item("Clark the clerk",     "Ms. Azoig? Someone like that was here years ago to grab all of our milk. I caused the great milk shortage of our town. Good times."))
-  butcher     .addItem(Item("Butch the butcher",   "Damn pig running in circles around town again. Like all creatures do upon the sight of death. They run. Futile effort tho."))
-  neighbor    .addItem(Item("Neiro your neighbor", "mm mmmmm mmmm"))
+  farm        .addTownsperson(Townsperson("farmer Francesco",    "Your mother's name does ring a bell"))
+  supermarket .addTownsperson(Townsperson("Clark the clerk",     "Ms. Azoig? Someone like that was here years ago to grab all of our milk. I caused the great milk shortage of our town. Good times."))
+  butcher     .addTownsperson(Townsperson("Butch the butcher",   "Damn pig running in circles around town again. Like all creatures do upon the sight of death. They run. Futile effort tho."))
+  neighbor    .addTownsperson(Townsperson("Neiro your neighbor", "mm mmmmm mmmm"))
 
   /** The character that the player controls in the game. */
   val player = Player(home) //player's startingArea is home
@@ -60,17 +60,13 @@ class Adventure:
   val timeLimit = 40
 
   def addCabbageIntoGarden =
-<<<<<<< HEAD
     //if planted.seed then
     if this.turnCount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
       garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
-=======
     if this.player.plantedSeed then
       if this.turncount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
         garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that")
 
-
->>>>>>> 89147f8ca60b36ce30821029525fda273f4b8354
 
   /** Determines if the adventure is complete, that is, if the player has won. */
   def isComplete =

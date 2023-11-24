@@ -13,7 +13,7 @@ class Area(var name: String, var description: String):
 
   private val neighbors = Map[String, Area]()    //the areas which neighbor this area
   private val items = Map[String, Item]()        //the items that a given area contains
-  private val townspeople = Map[String, Item]() //the townspeople that reside in a given area
+  private val townspeople = Map[String, Townsperson]() //the townspeople that reside in a given area
 
   /** Returns the area that can be reached from this area by moving in the given direction. The result
     * is returned in an `Option`; `None` is returned if there is no exit in the given direction. */
@@ -41,10 +41,13 @@ class Area(var name: String, var description: String):
   def fullDescription =
     val exitList = "\n\nExits available: " + this.neighbors.keys.mkString(" ")
     val itemList = "\n\nYou see here: " + this.items.keys.mkString(" ")
+    var townspersonList = "\n\nYou see here: " + this.townspeople.keys.mkString(" ")"
     if items.isEmpty then
       this.description + exitList
     else
       this.description + itemList + exitList
+    if townspeople.isEmpty then
+      townspersonList = "\n\n You see no one here."
 
 
   def addItem(item: Item) = //Places an item in the area so that it can be, for instance, picked up.

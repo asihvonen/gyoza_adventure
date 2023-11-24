@@ -14,7 +14,8 @@ class Player(startingArea: Area):
   private var currentLocation = startingArea           // gatherer: changes in relation to the previous location
   private var quitCommandGiven = false                 // one-way flag
   private var possessions = Map[String, Item]()        // Map of the items that a player has in their possession
-
+  private var townspeopleHere = this.currentLocation.
+  
   /** Determines if the player has indicated a desire to quit the game. */
   def hasQuit = this.quitCommandGiven
 
@@ -42,8 +43,8 @@ class Player(startingArea: Area):
 
   def plantedSeed(theSeed: String) =
     if theSeed == "seed" then
-      if this.currentLocation == garden && this.has.("seed") then
-        this.possesions -= theSeed
+      if this.currentLocation == garden && this.has("seed") then
+        this.possessions -= theSeed
         print("Seed succesfully planted.")
         true
       else
