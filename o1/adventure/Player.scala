@@ -15,8 +15,6 @@ class Player(startingArea: Area):
   private var quitCommandGiven = false              // one-way flag
   private var possessions = Map[String, Item]()     // Map of the items that a player has in their possession
 
-
-
   /** Determines if the player has indicated a desire to quit the game. */
   def hasQuit = this.quitCommandGiven
 
@@ -86,6 +84,9 @@ class Player(startingArea: Area):
 
   def has(itemName: String): Boolean = this.possessions.contains(itemName)
   //Determines whether the player is carrying an item of the given name.
+
+  //def canMakeGyoza(): Boolean = this.possessions.size == 6 && this.location
+  //number of ingredients now hard-coded!!
 
 end Player
 
