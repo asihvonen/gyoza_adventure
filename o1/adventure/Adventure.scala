@@ -13,7 +13,7 @@ class Adventure:
   /** the name of the game */
   val title = "A Forest Adventure"
 
-  private val home        =  Area("Home", "You are at home.")
+  private val home        = Area("Home", "You are at home.")
   private val street1     = Area("Street", "You are on the street.")
   private val street2     = Area("Street", "You are on the street")
   private val garden      = Area("Garden", "You are in the garden by your home.")
@@ -23,7 +23,9 @@ class Adventure:
   private val butcher     = Area("Butcher", "You are in the butcher's shop.")
   private val neighbor    = Area("Neighbor", "You are at your neighbor's home.")
   private val destination = home
-  
+
+  home.setNeighbors(Vector("west" -> garden))
+
   /*
   middle     .setNeighbors(Vector("north" -> northForest, "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
   northForest.setNeighbors(Vector(                        "east" -> tangle, "south" -> middle,      "west" -> clearing   ))
