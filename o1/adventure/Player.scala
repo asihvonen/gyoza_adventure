@@ -14,8 +14,8 @@ class Player(startingArea: Area):
   private var currentLocation = startingArea           // gatherer: changes in relation to the previous location
   private var quitCommandGiven = false                 // one-way flag
   private var possessions = Map[String, Item]()        // Map of the items that a player has in their possession
-  private var townspeopleHere = this.currentLocation.
-  
+  private var townspeopleHere = this.currentLocation.getTownspeople()
+
   /** Determines if the player has indicated a desire to quit the game. */
   def hasQuit = this.quitCommandGiven
 
@@ -41,7 +41,7 @@ class Player(startingArea: Area):
   def rest() =
     "You rest for a while. Better get a move on, though."
 
-  def plantedSeed(theSeed: String) =
+  def plantedSeed(theSeed: String): Boolean =
     if theSeed == "seed" then
       if this.currentLocation == garden && this.has("seed") then
         this.possessions -= theSeed
@@ -96,6 +96,9 @@ class Player(startingArea: Area):
        //no but what
     else
       "You can't talk to who you can't see."
+      
+  def respond(reponse: String): String =
+    ???
 
   //def canMakeGyoza(): Boolean = this.possessions.size == 6 && this.location
   //number of ingredients now hard-coded!! also this doesn't really work because a lot of info needed for this is found in Adventure.scala...

@@ -45,7 +45,7 @@ class Adventure:
   butcher     .addItem(Item("pork",        "why is it tranporting randomly?"))
   neighbor    .addItem(Item("flour",       "soft ang gentle"))
 
-  /** Townspeople */
+  /** Townspeople */ //edit parameters of townspeople below to also add convo!
   farm        .addTownsperson(Townsperson("farmer Francesco",    "Your mother's name does ring a bell"))
   supermarket .addTownsperson(Townsperson("Clark the clerk",     "Ms. Azoig? Someone like that was here years ago to grab all of our milk. I caused the great milk shortage of our town. Good times."))
   butcher     .addTownsperson(Townsperson("Butch the butcher",   "Damn pig running in circles around town again. Like all creatures do upon the sight of death. They run. Futile effort tho."))
@@ -64,8 +64,8 @@ class Adventure:
     if this.turnCount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
       garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
     if this.player.plantedSeed then
-      if this.turncount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
-        garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that")
+      if this.turnCount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
+        garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
 
 
   /** Determines if the adventure is complete, that is, if the player has won. */

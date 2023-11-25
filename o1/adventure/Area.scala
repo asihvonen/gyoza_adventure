@@ -41,7 +41,7 @@ class Area(var name: String, var description: String):
   def fullDescription =
     val exitList = "\n\nExits available: " + this.neighbors.keys.mkString(" ")
     val itemList = "\n\nYou see here: " + this.items.keys.mkString(" ")
-    var townspersonList = "\n\nYou see here: " + this.townspeople.keys.mkString(" ")"
+    var townspersonList = "\n\nYou see here: " + this.townspeople.keys.mkString(" ")
     if items.isEmpty then
       this.description + exitList
     else
@@ -66,6 +66,8 @@ class Area(var name: String, var description: String):
     
   def addTownsperson(townsperson: Townsperson): Unit = //Places a townsperson in an area. The player can talk with the townsperson.
     townspeople += townsperson.name -> townsperson
+  
+  def getTownspeople() = this.townspeople
 
   /** Returns a single-line description of the area for debugging purposes. */
   override def toString = this.name + ": " + this.description.replaceAll("\n", " ").take(150)
