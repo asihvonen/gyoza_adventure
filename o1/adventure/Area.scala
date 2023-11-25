@@ -53,6 +53,9 @@ class Area(var name: String, var description: String):
   def addItem(item: Item) = //Places an item in the area so that it can be, for instance, picked up.
     items += item.name -> item
 
+  def addPerson(person: Townsperson) =
+    townspeople += person.name -> person
+
   def removeItem(itemName: String): Option[Item] =
     val returnItem = this.items.get(itemName)
     if this.contains(itemName) then items -= itemName   //Removes the item of the given name from the area, assuming an item with that name was there to begin with.
