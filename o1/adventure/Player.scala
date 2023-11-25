@@ -98,6 +98,7 @@ class Player(startingArea: Area):
       s"You can't talk to $townspersonName because they're not here. Maybe you ought to talk to the local optician instead."
 
   def respond(response: String): String =
+<<<<<<< HEAD
     if townspeopleHere.nonEmpty then
       val speaker: Townsperson = townspeopleHere.head._2 //poorly hard-coded shit right here, assumes there's one townsperson in an area (although there could be none or several)
       if speaker.dialogue.size > 1 && speaker.dialogue.hasNext then
@@ -107,6 +108,9 @@ class Player(startingArea: Area):
         s"You have already spoken to ${speaker.name}."
     else
       "Who exactly are you responding to when you're not talking to anyone to begin with?"
+=======
+    townspeopleHere.head._2.getDialogue(response).getOrElse("You have entered an invalid response")
+>>>>>>> 47d3c2f12d3bc79ce981edf46187fcae30e043b6
 
   def help(): String = ???
 

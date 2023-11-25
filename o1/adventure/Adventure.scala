@@ -12,6 +12,11 @@ class Adventure:
 
   /** The name of the game */
   val title = "Gyoza Adventure"
+  var butcherCounter = 0
+  var butcherNeighborCounter = 0
+  val pig1 = Pig(neighbor)
+  val pig2 = Pig(street2)
+  var actualPig = pig1
 
   /** Game areas */
   private val home        = Area("home",          "You are at your childhood home. This was where your mother took her last breath.")
@@ -42,7 +47,6 @@ class Adventure:
   forest      .addItem(Item("mushrooms",   "maybe you can go on a psychedelic adventures with them?"))
   farm        .addItem(Item("onion",       "tears upon the corners of your eyes"))
   supermarket .addItem(Item("seasonings",  "you wish British people actually know about the existence of this"))
-  butcher     .addItem(Item("pork",        "why is it tranporting randomly?"))
   neighbor    .addItem(Item("flour",       "soft ang gentle"))
 
   /** Townspeople */ //edit parameters of townspeople below to also add convo!
@@ -59,10 +63,24 @@ class Adventure:
   /** The maximum number of turns that this adventure game allows before time runs out. */
   val timeLimit = 40
 
+  def arriveAtButcher =
+    if this.player.location == butcher then butcherCounter += 1
+
+  def toBeNamedLater =
+    if (this.player.location == neighbor || this.player.location == street2) and butcherCounter > 0 then
+      butcherNeighborCounter += 1
+
   def hasAllIngredients = (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings"))
 
   def addCabbageIntoGarden =
+<<<<<<< HEAD
     if this.player.hasPlanted then
+=======
+    //if planted.seed then
+    if this.turnCount >= 20 || hasAllIngredients then
+      garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
+    if this.player.plant then
+>>>>>>> 47d3c2f12d3bc79ce981edf46187fcae30e043b6
       if this.turnCount >= 20 || hasAllIngredients then
         garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
 
@@ -81,6 +99,20 @@ class Adventure:
     "\n\nReminiscing in this memory, you begin to miss your mother and all the dear memories you have of her. You decide to make gyoza in honor of those memories." +
     "You check your mother's recipe book and decide to set out to get all the necessary ingredients."
 
+  def pork =
+    if butcherCounter == 1 and (this.player.location == neighbor || this.player.location == street2) and butcherNeighborCounter == 1 then
+      if this.player.location == neighbor then
+        street2.addPig(Pig1)
+      else if this.player.location == street2 then
+        neighbor.addPig(Pig2)
+        actualPig = pig2
+
+  def catchPig =
+    if this.player.location == actualPig.location then
+      actualPig.location.removePig(actualPig)
+
+
+
 
   /** Message displayed to the player at the end of the game. The message
     * will be different depending on whether or not the player has completed their quest. */
@@ -98,6 +130,7 @@ class Adventure:
     * case, no turns elapse. */
   def playTurn(command: String) =
     val action = Action(command)
+    actualPig.move
     val outcomeReport = action.execute(this.player)
     if outcomeReport.isDefined then
       this.turnCount += 1

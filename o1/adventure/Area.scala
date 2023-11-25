@@ -14,7 +14,7 @@ class Area(var name: String, var description: String):
   private val neighbors = Map[String, Area]()          //the areas which neighbor this area
   private val items = Map[String, Item]()              //the items that a given area contains
   private val townspeople = Map[String, Townsperson]() //the townspeople that reside in a given area
-
+  var pigList = Vector[Pig]()
   /** Returns the area that can be reached from this area by moving in the given direction. The result
     * is returned in an `Option`; `None` is returned if there is no exit in the given direction. */
   def neighbor(direction: String) = this.neighbors.get(direction)
@@ -70,6 +70,12 @@ class Area(var name: String, var description: String):
     townspeople += townsperson.name -> townsperson
   
   def getTownspeople = this.townspeople
+
+  def addPig(pig: Pig) = this.pigList :+ pig
+
+  def removePig(pig: Pig) =
+    if this.pigList.contains(pig) then
+      this.pigList -= pig
 
   /** Returns a single-line description of the area for debugging purposes. */
   override def toString = this.name + ": " + this.description.replaceAll("\n", " ").take(150)
