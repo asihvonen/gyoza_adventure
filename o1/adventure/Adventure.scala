@@ -30,8 +30,8 @@ class Adventure:
   street1     .setNeighbors(Vector("north" -> home,    "east" -> neighbor, "south" -> street2,     "west" -> forest ))
   street2     .setNeighbors(Vector("north" -> street1, "east" -> butcher,  "south" -> supermarket, "west" -> farm   ))
   garden      .setNeighbors(Vector(                    "east" -> home                                               ))
-  forest      .setNeighbors(Vector(                    "east" -> street1                                            ))
-  farm        .setNeighbors(Vector(                    "east" -> street2                                            ))
+  forest      .setNeighbors(Vector(                    "east" -> street1, "south" -> farm                           ))
+  farm        .setNeighbors(Vector("north" -> forest,   "east" -> street2                                           ))
   supermarket .setNeighbors(Vector("north" -> street2                                                               ))
   butcher     .setNeighbors(Vector("north" -> neighbor,                                            "west" -> street2))
   neighbor    .setNeighbors(Vector(                                         "south" -> butcher,    "west" -> street1))
@@ -46,10 +46,10 @@ class Adventure:
   neighbor    .addItem(Item("flour",       "soft ang gentle"))
 
   /** Townspeople */ //edit parameters of townspeople below to also add convo!
-  farm        .addTownsperson(Townsperson("farmer Francesco",    "Your mother's name does ring a bell"))
-  supermarket .addTownsperson(Townsperson("Clark the clerk",     "Ms. Azoig? Someone like that was here years ago to grab all of our milk. I caused the great milk shortage of our town. Good times."))
-  butcher     .addTownsperson(Townsperson("Butch the butcher",   "Damn pig running in circles around town again. Like all creatures do upon the sight of death. They run. Futile effort tho."))
-  neighbor    .addTownsperson(Townsperson("Neiro your neighbor", "mm mmmmm mmmm"))
+  farm        .addTownsperson(Townsperson("Francesco the farmer", farmerDialogue,   farmerStartDialogue))
+  supermarket .addTownsperson(Townsperson("Clark the clerk",      clerkDialogue,   clerkStartDialogue))
+  butcher     .addTownsperson(Townsperson("Butch the butcher",    butcherDialogue,  butcherStartDialogue))
+  neighbor    .addTownsperson(Townsperson("Neiro your neighbor",  neighborDialogue, neighborStartDialogue))
 
   /** The character that the player controls in the game. */
   val player = Player(home) //player's startingArea is home
@@ -59,19 +59,18 @@ class Adventure:
   /** The maximum number of turns that this adventure game allows before time runs out. */
   val timeLimit = 40
 
+  def hasAllIngredients = (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings"))
+
   def addCabbageIntoGarden =
-<<<<<<< HEAD
     //if planted.seed then
-    if this.turnCount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
+    if this.turnCount >= 20 || hasAllIngredients then
       garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
     if this.player.plant then
-      if this.turnCount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
+      if this.turnCount >= 20 || hasAllIngredients then
         garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
-=======
       if this.player.plant.success then
-        if this.turnCount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
+        if this.turnCount >= 20 || hasAllIngredients then
           garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
->>>>>>> 3702e918a98e7908564457e762e8de570235e331
 
 
   /** Determines if the adventure is complete, that is, if the player has won. */

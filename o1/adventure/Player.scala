@@ -41,24 +41,6 @@ class Player(startingArea: Area):
   def rest() =
     "You rest for a while. Better get a move on, though."
 
-<<<<<<< HEAD
-  def plant(theSeed: String): Boolean =
-=======
-  def plantedSeed(theSeed: String): Boolean =
-    var success = false
->>>>>>> 3702e918a98e7908564457e762e8de570235e331
-    if theSeed == "seed" then
-    if this.currentLocation == garden && this.has("seed") then
-        this.possessions -= theSeed
-        print("Seed succesfully planted.")
-        success = true
-      else
-        print("Unsuccessful, you either plan it in the wrong place, or you need to have the seed first.")
-    else
-      print("You can't plan this item, you have to plan a seed.")
-
-
-
   /** Signals that the player wants to quit the game. Returns a description of what happened within
     * the game as a result (which is the empty string, in this case). */
   def quit() =
@@ -92,16 +74,33 @@ class Player(startingArea: Area):
   def has(itemName: String): Boolean = this.possessions.contains(itemName)
   //Determines whether the player is carrying an item of the given name.
 
+   def plant(theSeed: String): String =
+    //var success = false -> why do we need this function to return a Boolean at all? (I've changed return type for now)
+    if theSeed == "seed" then
+      if this.currentLocation.name == "garden" && this.has("seed") then
+        this.possessions -= theSeed
+        //how to call def addCabbageIntoGarden (found in Adventure class) from here?
+        "Seed succesfully planted."
+        //success = true
+      else
+        "Unsuccessful, you either plan it in the wrong place, or you need to have the seed first."
+    else
+      "You can't plan this item, you have to plan a seed."
+
   def talk(townspersonName: String): String =
     if this.location.resides(townspersonName) then
-       s"You talk to $townspersonName."
-       townspeopleHere.get(townspersonName).get.startingDialogue
+      if townspeopleHere(townspersonName).alreadySpokenTo then //we don't want to repeat start dialogues
+        s"You have already spoken to $townspersonName."
+      else
+        townspeopleHere(townspersonName).nowSpokenTo()
+        s"You talk to $townspersonName./n" + townspeopleHere(townspersonName).startDialogue
     else
-      "You can't talk to who you can't see."
+      s"You can't talk to $townspersonName because they're not in ${this.location}. Maybe you ought to talk to the local optician instead."
 
-  def respond(reponse: String): String =
-    ???
+  def respond(response: String): String =
+    townspeopleHere.head._2.getDialogue(response).getOrElse("You have entered an invalid response")
 
+  def help(): String = ???
   //def canMakeGyoza(): Boolean = this.possessions.size == 6 && this.location
   //number of ingredients now hard-coded!! also this doesn't really work because a lot of info needed for this is found in Adventure.scala...
 
