@@ -60,18 +60,9 @@ class Adventure:
   val timeLimit = 40
 
   def addCabbageIntoGarden =
-<<<<<<< HEAD
-    //if planted.seed then
-    if this.turnCount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
-      garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
-    if this.player.plant then
-      if this.turnCount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
-        garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
-=======
-      if this.player.plant.success then
+      if this.player.planted then
         if this.turnCount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
           garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
->>>>>>> 3702e918a98e7908564457e762e8de570235e331
 
 
   /** Determines if the adventure is complete, that is, if the player has won. */

@@ -15,6 +15,7 @@ class Player(startingArea: Area):
   private var quitCommandGiven = false                 // one-way flag
   private var possessions = Map[String, Item]()        // Map of the items that a player has in their possession
   private var townspeopleHere = this.currentLocation.getTownspeople()
+  var planted = false
 
   /** Determines if the player has indicated a desire to quit the game. */
   def hasQuit = this.quitCommandGiven
@@ -41,21 +42,17 @@ class Player(startingArea: Area):
   def rest() =
     "You rest for a while. Better get a move on, though."
 
-<<<<<<< HEAD
+
   def plant(theSeed: String): Boolean =
-=======
-  def plantedSeed(theSeed: String): Boolean =
-    var success = false
->>>>>>> 3702e918a98e7908564457e762e8de570235e331
     if theSeed == "seed" then
-    if this.currentLocation == garden && this.has("seed") then
+      if this.currentLocation == garden && this.has("seed") then
+        this.planted = true
         this.possessions -= theSeed
-        print("Seed succesfully planted.")
-        success = true
+        "Seed succesfully planted."
       else
-        print("Unsuccessful, you either plan it in the wrong place, or you need to have the seed first.")
+        "Unsuccessful, you either plan it in the wrong place, or you need to have the seed first."
     else
-      print("You can't plan this item, you have to plan a seed.")
+      "You can't plan this item, you have to plan a seed."
 
 
 
@@ -100,7 +97,7 @@ class Player(startingArea: Area):
       "You can't talk to who you can't see."
 
   def respond(reponse: String): String =
-    ???
+
 
   //def canMakeGyoza(): Boolean = this.possessions.size == 6 && this.location
   //number of ingredients now hard-coded!! also this doesn't really work because a lot of info needed for this is found in Adventure.scala...
