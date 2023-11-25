@@ -15,6 +15,7 @@ class Player(startingArea: Area):
   private var quitCommandGiven = false                 // one-way flag
   private var possessions = Map[String, Item]()        // Map of the items that a player has in their possession
   private var townspeopleHere = this.currentLocation.getTownspeople()
+  var planted = false
 
   /** Determines if the player has indicated a desire to quit the game. */
   def hasQuit = this.quitCommandGiven
@@ -41,6 +42,23 @@ class Player(startingArea: Area):
   def rest() =
     "You rest for a while. Better get a move on, though."
 
+<<<<<<< HEAD
+=======
+
+  def plant(theSeed: String): Boolean =
+    if theSeed == "seed" then
+      if this.currentLocation == garden && this.has("seed") then
+        this.planted = true
+        this.possessions -= theSeed
+        "Seed succesfully planted."
+      else
+        "Unsuccessful, you either plan it in the wrong place, or you need to have the seed first."
+    else
+      "You can't plan this item, you have to plan a seed."
+
+
+
+>>>>>>> dda76cef37c286a10bf78318a718601d2ad4be7e
   /** Signals that the player wants to quit the game. Returns a description of what happened within
     * the game as a result (which is the empty string, in this case). */
   def quit() =
@@ -97,8 +115,13 @@ class Player(startingArea: Area):
     else
       s"You can't talk to $townspersonName because they're not in ${this.location}. Maybe you ought to talk to the local optician instead."
 
+<<<<<<< HEAD
   def respond(response: String): String =
     townspeopleHere.head._2.getDialogue(response).getOrElse("You have entered an invalid response")
+=======
+  def respond(reponse: String): String =
+
+>>>>>>> dda76cef37c286a10bf78318a718601d2ad4be7e
 
   def help(): String = ???
   //def canMakeGyoza(): Boolean = this.possessions.size == 6 && this.location

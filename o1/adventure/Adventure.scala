@@ -62,6 +62,7 @@ class Adventure:
   def hasAllIngredients = (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings"))
 
   def addCabbageIntoGarden =
+<<<<<<< HEAD
     //if planted.seed then
     if this.turnCount >= 20 || hasAllIngredients then
       garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
@@ -70,6 +71,10 @@ class Adventure:
         garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
       if this.player.plant.success then
         if this.turnCount >= 20 || hasAllIngredients then
+=======
+      if this.player.planted then
+        if this.turnCount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
+>>>>>>> dda76cef37c286a10bf78318a718601d2ad4be7e
           garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
 
 
