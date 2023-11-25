@@ -24,8 +24,8 @@ class Action(input: String):
     case "examine"   => Some(actor.examine(this.modifiers))
     case "inventory" => Some(actor.inventory)
     case "plant"     => Some(actor.plant(this.modifiers))
-    case "talk"      => Some(actor.talk(this.modifiers))
-    case "resond"    => Some(actor.respond(this.modifiers))
+    case "talkto"   => Some(actor.talkTo(this.modifiers)) 
+    case "respond"   => Some(actor.respond(this.modifiers))
     case "help"      => ???
     case other       => None
 

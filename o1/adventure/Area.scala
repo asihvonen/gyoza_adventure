@@ -11,8 +11,8 @@ import scala.collection.mutable.Map
   * @param description  a basic description of the area (typically not including information about items) */
 class Area(var name: String, var description: String):
 
-  private val neighbors = Map[String, Area]()    //the areas which neighbor this area
-  private val items = Map[String, Item]()        //the items that a given area contains
+  private val neighbors = Map[String, Area]()          //the areas which neighbor this area
+  private val items = Map[String, Item]()              //the items that a given area contains
   private val townspeople = Map[String, Townsperson]() //the townspeople that reside in a given area
 
   /** Returns the area that can be reached from this area by moving in the given direction. The result
@@ -39,22 +39,21 @@ class Area(var name: String, var description: String):
     * value has the form "DESCRIPTION\nYou see here: ITEMS SEPARATED BY SPACES\n\nExits available:
     * DIRECTIONS SEPARATED BY SPACES". The items and directions are listed in an arbitrary order. */
   def fullDescription =
-    val exitList = "\n\nExits available: " + this.neighbors.keys.mkString(" ")
-    val itemList = "\n\nYou see here: " + this.items.keys.mkString(" ")
-    var townspersonList = "\n\nYou see here: " + this.townspeople.keys.mkString(" ")
-    if items.isEmpty then
+    //val exitList = "\n\nExits available: " + this.neighbors.keys.mkString(" ")
+    val exitList = "\n\nExits available: " + this.neighbors.map( (string, area) => s"\n$string: ${area.name}").mkString(" ")
+    val itemList = "\n\nYou see the item(s): " + this.items.keys.mkString(" ")
+    var townspersonList = "\n\nYou see the townsperson(s): " + this.townspeople.keys.mkString(" ")
+    if items.isEmpty && townspeople.isEmpty then
       this.description + exitList
-    else
+    else if items.nonEmpty && townspeople.isEmpty then
       this.description + itemList + exitList
-    if townspeople.isEmpty then
-      townspersonList = "\n\n You see no one here."
-
+    else if items.isEmpty && townspeople.nonEmpty then
+      this.description + townspersonList + exitList
+    else
+      this.description + itemList + townspersonList + exitList
 
   def addItem(item: Item) = //Places an item in the area so that it can be, for instance, picked up.
     items += item.name -> item
-
-  def addPerson(person: Townsperson) =
-    townspeople += person.name -> person
 
   def removeItem(itemName: String): Option[Item] =
     val returnItem = this.items.get(itemName)
@@ -70,7 +69,7 @@ class Area(var name: String, var description: String):
   def addTownsperson(townsperson: Townsperson): Unit = //Places a townsperson in an area. The player can talk with the townsperson.
     townspeople += townsperson.name -> townsperson
   
-  def getTownspeople() = this.townspeople
+  def getTownspeople = this.townspeople
 
   /** Returns a single-line description of the area for debugging purposes. */
   override def toString = this.name + ": " + this.description.replaceAll("\n", " ").take(150)

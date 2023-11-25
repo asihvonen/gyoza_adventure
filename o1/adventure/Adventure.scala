@@ -14,24 +14,24 @@ class Adventure:
   val title = "Gyoza Adventure"
 
   /** Game areas */
-  private val home        = Area("Home",          "You are your home sweet home. This was where your mother took her last breath.")
-  private val street1     = Area("Street",        "You are on the street. There's nothing much to see here.")
-  private val street2     = Area("Street",        "You are on the street. There's probably more to see elsewhere.")
-  private val garden      = Area("Garden",        "You are in the magical little garden by your home. Here you can grow all that your heart desires.")
-  private val forest      = Area("Forest",        "You are in a spooky forest. There's amazing things to be found in nature. ")
-  private val farm        = Area("Farm",          "You are on a farm. A hillbilly town's got to have a farm somewhere near.")
-  private val supermarket = Area("Supermarket",   "You are in the town supermarket. There's only one supermarket and this is it.")
-  private val butcher     = Area("Butcher",       "You are in the butcher's shop. They always have the most beautiful red paints here.")
-  private val neighbor    = Area("Neighbor",      "You are now in your neighbors home. ")
+  private val home        = Area("home",          "You are at your childhood home. This was where your mother took her last breath.")
+  private val street1     = Area("street",        "You are on the street. There's nothing much to see here.")
+  private val street2     = Area("street",        "You are on the street. There's probably more to see elsewhere.")
+  private val garden      = Area("garden",        "You are in the magical little garden by your home. Here you can grow all that your heart desires.")
+  private val forest      = Area("forest",        "You are in a spooky forest. There's amazing things to be found in nature. ")
+  private val farm        = Area("farm",          "You are on a farm. A hillbilly town's got to have a farm somewhere near.")
+  private val supermarket = Area("supermarket",   "You are in the town supermarket. There's only one supermarket and this is it.")
+  private val butcher     = Area("butcher",       "You are in the butcher's shop. They always have the most beautiful red paints here.")
+  private val neighbor    = Area("neighbor",      "You are now in your neighbors home. ")
   private val destination = home
 
   /** Relative locations of areas */
-  home        .setNeighbors(Vector(                                                                "west" -> garden ))
+  home        .setNeighbors(Vector(                                        "south" -> street1,     "west" -> garden ))
   street1     .setNeighbors(Vector("north" -> home,    "east" -> neighbor, "south" -> street2,     "west" -> forest ))
   street2     .setNeighbors(Vector("north" -> street1, "east" -> butcher,  "south" -> supermarket, "west" -> farm   ))
-  garden      .setNeighbors(Vector(                    "east" -> home                                               ))
-  forest      .setNeighbors(Vector(                    "east" -> street1, "south" -> farm                           ))
-  farm        .setNeighbors(Vector("north" -> forest,   "east" -> street2                                           ))
+  garden      .setNeighbors(Vector(                    "east" -> home,     "south" -> forest                        ))
+  forest      .setNeighbors(Vector("north" -> garden,  "east" -> street1,  "south" -> farm                          ))
+  farm        .setNeighbors(Vector("north" -> forest,  "east" -> street2                                           ))
   supermarket .setNeighbors(Vector("north" -> street2                                                               ))
   butcher     .setNeighbors(Vector("north" -> neighbor,                                            "west" -> street2))
   neighbor    .setNeighbors(Vector(                                         "south" -> butcher,    "west" -> street1))
@@ -46,10 +46,10 @@ class Adventure:
   neighbor    .addItem(Item("flour",       "soft ang gentle"))
 
   /** Townspeople */ //edit parameters of townspeople below to also add convo!
-  farm        .addTownsperson(Townsperson("Francesco the farmer", farmerDialogue,   farmerStartDialogue))
-  supermarket .addTownsperson(Townsperson("Clark the clerk",      clerkDialogue,   clerkStartDialogue))
-  butcher     .addTownsperson(Townsperson("Butch the butcher",    butcherDialogue,  butcherStartDialogue))
-  neighbor    .addTownsperson(Townsperson("Neiro your neighbor",  neighborDialogue, neighborStartDialogue))
+  farm        .addTownsperson(Townsperson("francesco the farmer", farmerDialogue  ))
+  supermarket .addTownsperson(Townsperson("clark the clerk",      clerkDialogue   ))
+  butcher     .addTownsperson(Townsperson("butch the butcher",    butcherDialogue ))
+  neighbor    .addTownsperson(Townsperson("neiro your neighbor",  neighborDialogue))
 
   /** The character that the player controls in the game. */
   val player = Player(home) //player's startingArea is home
@@ -62,20 +62,9 @@ class Adventure:
   def hasAllIngredients = (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings"))
 
   def addCabbageIntoGarden =
-<<<<<<< HEAD
-    //if planted.seed then
-    if this.turnCount >= 20 || hasAllIngredients then
-      garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
-    if this.player.plant then
+    if this.player.hasPlanted then
       if this.turnCount >= 20 || hasAllIngredients then
         garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
-      if this.player.plant.success then
-        if this.turnCount >= 20 || hasAllIngredients then
-=======
-      if this.player.planted then
-        if this.turnCount >= 20 || (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings")) then
->>>>>>> dda76cef37c286a10bf78318a718601d2ad4be7e
-          garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
 
 
   /** Determines if the adventure is complete, that is, if the player has won. */
@@ -99,7 +88,7 @@ class Adventure:
     if this.isComplete then
       "Home at last... and phew, just in time! Well done!"
     else if this.turnCount == this.timeLimit then
-      "Oh no! Time's up. Starved of entertainment, you collapse and weep like a child.\nGame over!"
+      "Oh no! Time's up. Starved of gyoza, you collapse and die. But maybe you can meet you mother now. \nGame over!"
     else  // game over due to player quitting
       "Quitter!"
 

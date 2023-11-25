@@ -14,8 +14,8 @@ class Player(startingArea: Area):
   private var currentLocation = startingArea           // gatherer: changes in relation to the previous location
   private var quitCommandGiven = false                 // one-way flag
   private var possessions = Map[String, Item]()        // Map of the items that a player has in their possession
-  private var townspeopleHere = this.currentLocation.getTownspeople()
-  var planted = false
+  private var townspeopleHere: Map[String, Townsperson] = this.currentLocation.getTownspeople
+  private var planted = false
 
   /** Determines if the player has indicated a desire to quit the game. */
   def hasQuit = this.quitCommandGiven
@@ -42,23 +42,19 @@ class Player(startingArea: Area):
   def rest() =
     "You rest for a while. Better get a move on, though."
 
-<<<<<<< HEAD
-=======
+  def hasPlanted = this.planted
 
-  def plant(theSeed: String): Boolean =
+  def plant(theSeed: String): String =
     if theSeed == "seed" then
-      if this.currentLocation == garden && this.has("seed") then
+      if this.currentLocation.name == "garden" && this.has("seed") then
         this.planted = true
         this.possessions -= theSeed
         "Seed succesfully planted."
       else
-        "Unsuccessful, you either plan it in the wrong place, or you need to have the seed first."
+        "Unsuccessful, you either plant it in the wrong place, or you need to have the seed first."
     else
-      "You can't plan this item, you have to plan a seed."
+      "You can't plant this item, you have to plant a seed."
 
-
-
->>>>>>> dda76cef37c286a10bf78318a718601d2ad4be7e
   /** Signals that the player wants to quit the game. Returns a description of what happened within
     * the game as a result (which is the empty string, in this case). */
   def quit() =
@@ -92,38 +88,28 @@ class Player(startingArea: Area):
   def has(itemName: String): Boolean = this.possessions.contains(itemName)
   //Determines whether the player is carrying an item of the given name.
 
-   def plant(theSeed: String): String =
-    //var success = false -> why do we need this function to return a Boolean at all? (I've changed return type for now)
-    if theSeed == "seed" then
-      if this.currentLocation.name == "garden" && this.has("seed") then
-        this.possessions -= theSeed
-        //how to call def addCabbageIntoGarden (found in Adventure class) from here?
-        "Seed succesfully planted."
-        //success = true
-      else
-        "Unsuccessful, you either plan it in the wrong place, or you need to have the seed first."
-    else
-      "You can't plan this item, you have to plan a seed."
-
-  def talk(townspersonName: String): String =
+  def talkTo(townspersonName: String): String =
     if this.location.resides(townspersonName) then
-      if townspeopleHere(townspersonName).alreadySpokenTo then //we don't want to repeat start dialogues
+      val speaker: Townsperson = townspeopleHere(townspersonName) //something is wrong here??
+      if speaker.dialogue.size > 1 then //apparently iterators don't work like thisssss omll wtf do I do now
         s"You have already spoken to $townspersonName."
-      else
-        townspeopleHere(townspersonName).nowSpokenTo()
-        s"You talk to $townspersonName./n" + townspeopleHere(townspersonName).startDialogue
+      else s"You talk to $townspersonName./n " + speaker.dialogue.next()._1
     else
-      s"You can't talk to $townspersonName because they're not in ${this.location}. Maybe you ought to talk to the local optician instead."
+      s"You can't talk to $townspersonName because they're not here. Maybe you ought to talk to the local optician instead."
 
-<<<<<<< HEAD
   def respond(response: String): String =
-    townspeopleHere.head._2.getDialogue(response).getOrElse("You have entered an invalid response")
-=======
-  def respond(reponse: String): String =
-
->>>>>>> dda76cef37c286a10bf78318a718601d2ad4be7e
+    if townspeopleHere.nonEmpty then
+      val speaker: Townsperson = townspeopleHere.head._2 //poorly hard-coded shit right here, assumes there's one townsperson in an area (although there could be none or several)
+      if speaker.dialogue.size > 1 && speaker.dialogue.hasNext then
+        if response == "A" then speaker.dialogue.next()._1
+        else speaker.dialogue.next()._2
+      else
+        s"You have already spoken to ${speaker.name}."
+    else
+      "Who exactly are you responding to when you're not talking to anyone to begin with?"
 
   def help(): String = ???
+
   //def canMakeGyoza(): Boolean = this.possessions.size == 6 && this.location
   //number of ingredients now hard-coded!! also this doesn't really work because a lot of info needed for this is found in Adventure.scala...
 
