@@ -115,13 +115,8 @@ class Player(startingArea: Area):
     else
       s"You can't talk to $townspersonName because they're not in ${this.location}. Maybe you ought to talk to the local optician instead."
 
-<<<<<<< HEAD
   def respond(response: String): String =
     townspeopleHere.head._2.getDialogue(response).getOrElse("You have entered an invalid response")
-=======
-  def respond(reponse: String): String =
-
->>>>>>> dda76cef37c286a10bf78318a718601d2ad4be7e
 
   def help(): String = ???
   //def canMakeGyoza(): Boolean = this.possessions.size == 6 && this.location
