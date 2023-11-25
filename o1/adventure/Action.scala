@@ -23,7 +23,10 @@ class Action(input: String):
     case "drop"      => Some(actor.drop(this.modifiers))
     case "examine"   => Some(actor.examine(this.modifiers))
     case "inventory" => Some(actor.inventory)
-    case "plant"     => Some(actor.plantedSeed(this.modifiers))
+    case "plant"     => Some(actor.plant(this.modifiers))
+    case "talk"      => Some(actor.talk(this.modifiers))
+    case "resond"    => Some(actor.respond(this.modifiers))
+    case "help"      => ???
     case other       => None
 
   /** Returns a textual description of the action object, for debugging purposes. */

@@ -41,7 +41,7 @@ class Player(startingArea: Area):
   def rest() =
     "You rest for a while. Better get a move on, though."
 
-  def plantedSeed(theSeed: String): Boolean =
+  def plant(theSeed: String): Boolean =
     if theSeed == "seed" then
       if this.currentLocation == garden && this.has("seed") then
         this.possessions -= theSeed
@@ -92,11 +92,10 @@ class Player(startingArea: Area):
   def talk(townspersonName: String): String =
     if this.location.resides(townspersonName) then
        s"You talk to $townspersonName."
-       //and then this should call some other def which starts the conversation which takes user input and all...
-       //no but what
+       townspeopleHere.get(townspersonName).get.startingDialogue
     else
       "You can't talk to who you can't see."
-      
+
   def respond(reponse: String): String =
     ???
 
