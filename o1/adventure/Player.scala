@@ -42,17 +42,16 @@ class Player(startingArea: Area):
     "You rest for a while. Better get a move on, though."
 
   def plantedSeed(theSeed: String): Boolean =
+    var success = false
     if theSeed == "seed" then
-      if this.currentLocation == garden && this.has("seed") then
+    if this.currentLocation == garden && this.has("seed") then
         this.possessions -= theSeed
         print("Seed succesfully planted.")
-        true
+        success = true
       else
         print("Unsuccessful, you either plan it in the wrong place, or you need to have the seed first.")
-        false
     else
       print("You can't plan this item, you have to plan a seed.")
-      false
 
 
 
