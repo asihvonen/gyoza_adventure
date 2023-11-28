@@ -12,8 +12,8 @@ class Adventure:
 
   /** The name of the game */
   val title = "Gyoza Adventure"
-  var butcherCounter = 0
   val thePork = Item("pork", "something somwthing")
+  val theKnife = Item("knife", "You can now release the pig from the pain of existence.")
 
   /** Game areas */
   private val home        = Area("home",          "You are at your childhood home. This was where your mother took her last breath.")
@@ -87,14 +87,9 @@ class Adventure:
 
   /** Pig, pork, whatever it is that's running in circles */
 
-  def plusButcher() =
-    if player.location == butcher then
-      butcherCounter += 1
-      println(butcherCounter.toString)
-
 
   def catchPig() =
-    if butcherCounter > 0 && this.player.location == thePig.location then
+    if player.has("knife") && this.player.location == thePig.location then
       thePig.location.removePig(thePig)
       this.player.location.addItem(thePork)
       this.player.get("pork")
@@ -117,7 +112,6 @@ class Adventure:
     * case, no turns elapse. */
   def playTurn(command: String) =
     val action = Action(command)
-    plusButcher()
     thePig.move
     catchPig()
     addCabbageIntoGarden()
