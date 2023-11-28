@@ -64,7 +64,7 @@ class Adventure:
   /** The maximum number of turns that this adventure game allows before time runs out. */
   val timeLimit = 40
 
-  def addCabbageIntoGarden =
+  def addCabbageIntoGarden() =
     println(this.player.hasPlanted)
     if this.player.hasPlanted then
       //if this.turnCount >= 20 || this.player.hasAllIngredients then
@@ -93,7 +93,7 @@ class Adventure:
       println(butcherCounter.toString)
 
 
-  def catchPig =
+  def catchPig() =
     if butcherCounter > 0 && this.player.location == thePig.location then
       thePig.location.removePig(thePig)
       this.player.location.addItem(thePork)
@@ -117,7 +117,10 @@ class Adventure:
     * case, no turns elapse. */
   def playTurn(command: String) =
     val action = Action(command)
+    plusButcher()
     thePig.move
+    catchPig()
+    addCabbageIntoGarden()
     val outcomeReport = action.execute(this.player)
     if outcomeReport.isDefined then
       this.turnCount += 1
