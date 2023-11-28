@@ -2,7 +2,7 @@ package o1.adventure
 
 class Pig(private val dropArea: Area):
 
-  private var currentLocation = dropArea
+  private var currentLocation = this.dropArea
 
   def dropPlace = this.dropArea
 
@@ -12,7 +12,7 @@ class Pig(private val dropArea: Area):
 
   def move =
     val previousLocation = this.currentLocation
-    val route1 = Vector[Area](
+    val route1 = Vector[Area]( //route1 currentLocation should be neighbor
       this.currentLocation,
       this.currentLocation.neighbor("south").getOrElse(currentLocation),  //butcher
       this.currentLocation.neighbor("west").getOrElse(currentLocation),   //street2
@@ -20,13 +20,13 @@ class Pig(private val dropArea: Area):
       this.currentLocation.neighbor("north").getOrElse(currentLocation),  //forest
       this.currentLocation.neighbor("east").getOrElse(currentLocation),   //street1
       this.currentLocation.neighbor("east").getOrElse(currentLocation))   //neighbor
-    val route2 = Vector[Area](
+    val route2 = Vector[Area]( //route2 currentLocation should be street2
       this.currentLocation,
       this.currentLocation.neighbor("east").getOrElse(currentLocation),   //butcher
       this.currentLocation.neighbor("north").getOrElse(currentLocation),  //neighbor
       this.currentLocation.neighbor("west").getOrElse(currentLocation),   //street1
       this.currentLocation.neighbor("west").getOrElse(currentLocation),   //forest
-      this.currentLocation.neighbor("south").getOrElse(currentLocation),  //farm
+      this.currentLocation.neighbor("south").getOrElse(currentLocation))  //farm
     if dropArea.name == "neighbor" then
       previousLocation.removePig(this)
       this.currentLocation = route1(count)

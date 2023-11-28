@@ -14,7 +14,7 @@ class Player(startingArea: Area):
   private var currentLocation = startingArea           // gatherer: changes in relation to the previous location
   private var quitCommandGiven = false                 // one-way flag
   private var possessions = Map[String, Item]()        // Map of the items that a player has in their possession
-  private var townspeopleHere: Map[String, Townsperson] = this.currentLocation.getTownspeople
+  private var townspeopleHere: Option[Townsperson] = this.currentLocation.townspeople
   private var planted = false
 
   /** Determines if the player has indicated a desire to quit the game. */
@@ -51,9 +51,9 @@ class Player(startingArea: Area):
         this.possessions -= theSeed
         "Seed succesfully planted."
       else
-        "Unsuccessful, you either plant it in the wrong place, or you need to have the seed first."
+        "Unsuccessful." + (if !this.has("seed") then "You need to have the seed first" else "You need to be in the garden to plant the seed")
     else
-      "You can't plant this item, you have to plant a seed."
+      s"You can't plant ${theSeed}, you have to plant a seed."
 
   /** Signals that the player wants to quit the game. Returns a description of what happened within
     * the game as a result (which is the empty string, in this case). */
@@ -89,30 +89,41 @@ class Player(startingArea: Area):
   //Determines whether the player is carrying an item of the given name.
 
   def talkTo(townspersonName: String): String =
-    if this.location.resides(townspersonName) then
-      val speaker: Townsperson = townspeopleHere(townspersonName) //something is wrong here??
-      if speaker.dialogue.size > 1 then //apparently iterators don't work like thisssss omll wtf do I do now
+    println(currentLocation)
+    println(townspeopleHere)
+    if townspeopleHere.nonEmpty then //if there is a townsperson in the area -> this is always false for some reason
+    //include in above if statement: townspeopleHere.get.name == townspersonName
+      val speaker: Townsperson = townspeopleHere.get
+      if speaker.alreadySpokenTo then
         s"You have already spoken to $townspersonName."
-      else s"You talk to $townspersonName./n " + speaker.dialogue.next()._1
+      else s"You talk to $townspersonName./n " + speaker.getDialogue().get._1
     else
       s"You can't talk to $townspersonName because they're not here. Maybe you ought to talk to the local optician instead."
 
   def respond(response: String): String =
-<<<<<<< HEAD
     if townspeopleHere.nonEmpty then
-      val speaker: Townsperson = townspeopleHere.head._2 //poorly hard-coded shit right here, assumes there's one townsperson in an area (although there could be none or several)
-      if speaker.dialogue.size > 1 && speaker.dialogue.hasNext then
-        if response == "A" then speaker.dialogue.next()._1
-        else speaker.dialogue.next()._2
+      val speaker: Townsperson = townspeopleHere.get //assumes there's only one townsperson in an area
+      if speaker.alreadySpokenTo then
+        speaker.getDialogue() match
+          case Some( (dialogue1, dialogue2) ) =>
+            if response == "A" then dialogue1
+            else dialogue2
+          case None => ""
       else
         s"You have already spoken to ${speaker.name}."
     else
       "Who exactly are you responding to when you're not talking to anyone to begin with?"
-=======
-    townspeopleHere.head._2.getDialogue(response).getOrElse("You have entered an invalid response")
->>>>>>> 47d3c2f12d3bc79ce981edf46187fcae30e043b6
 
   def help(): String = ???
+
+  def hasAllIngredients = (this.has("pork") && this.has("flour") && this.has("onion") && this.has("mushrooms") && this.has("seasonings"))
+
+/*
+  def make(theGyoza: String) =
+    if theGyoza = "gyoza" && this.hasAllIngredients && this.has("frying pan") then
+      //remove all ingredients from inventory: .clear()? (but if frying pan is in the inventory...)
+      //add gyoza to inventory
+ */
 
   //def canMakeGyoza(): Boolean = this.possessions.size == 6 && this.location
   //number of ingredients now hard-coded!! also this doesn't really work because a lot of info needed for this is found in Adventure.scala...

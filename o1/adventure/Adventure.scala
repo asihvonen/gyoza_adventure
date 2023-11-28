@@ -12,11 +12,6 @@ class Adventure:
 
   /** The name of the game */
   val title = "Gyoza Adventure"
-  var butcherCounter = 0
-  var butcherNeighborCounter = 0
-  val pig1 = Pig(neighbor)
-  val pig2 = Pig(street2)
-  var actualPig = pig1
 
   /** Game areas */
   private val home        = Area("home",          "You are at your childhood home. This was where your mother took her last breath.")
@@ -63,26 +58,13 @@ class Adventure:
   /** The maximum number of turns that this adventure game allows before time runs out. */
   val timeLimit = 40
 
-  def arriveAtButcher =
-    if this.player.location == butcher then butcherCounter += 1
-
-  def toBeNamedLater =
-    if (this.player.location == neighbor || this.player.location == street2) and butcherCounter > 0 then
-      butcherNeighborCounter += 1
-
-  def hasAllIngredients = (this.player.has("pork") && this.player.has("flour") && this.player.has("onion") && this.player.has("mushrooms") && this.player.has("seasonings"))
 
   def addCabbageIntoGarden =
-<<<<<<< HEAD
+    println(this.player.hasPlanted)
     if this.player.hasPlanted then
-=======
-    //if planted.seed then
-    if this.turnCount >= 20 || hasAllIngredients then
-      garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
-    if this.player.plant then
->>>>>>> 47d3c2f12d3bc79ce981edf46187fcae30e043b6
-      if this.turnCount >= 20 || hasAllIngredients then
-        garden.addItem(Item("Cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
+      //if this.turnCount >= 20 || this.player.hasAllIngredients then
+        garden.addItem(Item("cabbage",     "You are quite disppointed that you don't get to see the giants, but hey, gyoza's way better than that"))
+        println(this.player.location.description)
 
 
   /** Determines if the adventure is complete, that is, if the player has won. */
@@ -97,21 +79,34 @@ class Adventure:
   def welcomeMessage =
     "Sizzling and steaming, crispy on the bottom and oh so tender on top, your very first taste of your late mother's gyoza was love at first bite." +
     "\n\nReminiscing in this memory, you begin to miss your mother and all the dear memories you have of her. You decide to make gyoza in honor of those memories." +
-    "You check your mother's recipe book and decide to set out to get all the necessary ingredients."
+    "You check your mother's recipe book and decide to out to get all the necessary ingredients."
+
+  /** Pig, pork, whatever it is that's running in circles */
+  var butcherCounter = 0
+  var butcherNeighborCounter = 0
+  val pig1 = Pig(neighbor)
+  val pig2 = Pig(street2)
+  var actualPig = pig1
+
+  def arriveAtButcher = if this.player.location == butcher then butcherCounter += 1
+
+  def toBeNamedLater =
+    if (this.player.location == neighbor || this.player.location == street2) && butcherCounter > 0 then
+      butcherNeighborCounter += 1
 
   def pork =
-    if butcherCounter == 1 and (this.player.location == neighbor || this.player.location == street2) and butcherNeighborCounter == 1 then
+    if butcherCounter == 1 && (this.player.location == neighbor || this.player.location == street2) && butcherNeighborCounter == 1 then
       if this.player.location == neighbor then
-        street2.addPig(Pig1)
+        street2.addPig(actualPig)
       else if this.player.location == street2 then
-        neighbor.addPig(Pig2)
         actualPig = pig2
+        neighbor.addPig(actualPig)
 
   def catchPig =
     if this.player.location == actualPig.location then
       actualPig.location.removePig(actualPig)
-
-
+      this.player.location.addItem(Item("pork", "Dumb pork text"))
+    "Pig is caught"
 
 
   /** Message displayed to the player at the end of the game. The message
@@ -130,7 +125,8 @@ class Adventure:
     * case, no turns elapse. */
   def playTurn(command: String) =
     val action = Action(command)
-    actualPig.move
+    if butcherCounter == 1 && (this.player.location == neighbor || this.player.location == street2) && butcherNeighborCounter == 1 then
+      actualPig.move
     val outcomeReport = action.execute(this.player)
     if outcomeReport.isDefined then
       this.turnCount += 1

@@ -13,7 +13,7 @@ class Area(var name: String, var description: String):
 
   private val neighbors = Map[String, Area]()          //the areas which neighbor this area
   private val items = Map[String, Item]()              //the items that a given area contains
-  private val townspeople = Map[String, Townsperson]() //the townspeople that reside in a given area
+  var townspeople: Option[Townsperson] = None //the townspeople that reside in a given area
   var pigList = Vector[Pig]()
   /** Returns the area that can be reached from this area by moving in the given direction. The result
     * is returned in an `Option`; `None` is returned if there is no exit in the given direction. */
@@ -42,7 +42,7 @@ class Area(var name: String, var description: String):
     //val exitList = "\n\nExits available: " + this.neighbors.keys.mkString(" ")
     val exitList = "\n\nExits available: " + this.neighbors.map( (string, area) => s"\n$string: ${area.name}").mkString(" ")
     val itemList = "\n\nYou see the item(s): " + this.items.keys.mkString(" ")
-    var townspersonList = "\n\nYou see the townsperson(s): " + this.townspeople.keys.mkString(" ")
+    var townspersonList = "\n\nYou see the townsperson: " + this.townspeople.getOrElse("")
     if items.isEmpty && townspeople.isEmpty then
       this.description + exitList
     else if items.nonEmpty && townspeople.isEmpty then
@@ -67,7 +67,7 @@ class Area(var name: String, var description: String):
     townspeople.contains(townspersonName)
     
   def addTownsperson(townsperson: Townsperson): Unit = //Places a townsperson in an area. The player can talk with the townsperson.
-    townspeople += townsperson.name -> townsperson
+    townspeople = Some(townsperson)
   
   def getTownspeople = this.townspeople
 
@@ -75,7 +75,7 @@ class Area(var name: String, var description: String):
 
   def removePig(pig: Pig) =
     if this.pigList.contains(pig) then
-      this.pigList -= pig
+      this.pigList = Vector()
 
   /** Returns a single-line description of the area for debugging purposes. */
   override def toString = this.name + ": " + this.description.replaceAll("\n", " ").take(150)
