@@ -14,7 +14,7 @@ class Player(startingArea: Area):
   private var currentLocation = startingArea           // gatherer: changes in relation to the previous location
   private var quitCommandGiven = false                 // one-way flag
   private var possessions = Map[String, Item]()        // Map of the items that a player has in their possession
-  private var townspeopleHere: Option[Townsperson] = this.currentLocation.townspeople
+  def townspeopleHere: Option[Townsperson] = this.currentLocation.getTownspeople
   private var planted = false
 
   /** Determines if the player has indicated a desire to quit the game. */
@@ -89,8 +89,6 @@ class Player(startingArea: Area):
   //Determines whether the player is carrying an item of the given name.
 
   def talkTo(townspersonName: String): String =
-    println(currentLocation)
-    println(townspeopleHere)
     if townspeopleHere.nonEmpty then //if there is a townsperson in the area -> this is always false for some reason
     //include in above if statement: townspeopleHere.get.name == townspersonName
       val speaker: Townsperson = townspeopleHere.get
@@ -105,9 +103,7 @@ class Player(startingArea: Area):
       val speaker: Townsperson = townspeopleHere.get //assumes there's only one townsperson in an area
       if speaker.alreadySpokenTo then
         speaker.getDialogue() match
-          case Some( (dialogue1, dialogue2) ) =>
-            if response == "A" then dialogue1
-            else dialogue2
+          case Some( (dialogue1, dialogue2) ) => if response == "A" then dialogue1 else dialogue2
           case None => ""
       else
         s"You have already spoken to ${speaker.name}."
